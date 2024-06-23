@@ -7,7 +7,7 @@ import { MemoryManager } from "@/lib/memory";
 import { rateLimit } from "@/lib/rate-limit";
 import prismadb from "@/lib/prismadb";
 import { CallbackManager } from "@langchain/core/callbacks/manager";
-
+export const maxDuration = 60;
 export async function POST(
   request: Request,
   { params }: { params: { chatId: string } }

@@ -8,7 +8,7 @@ export type CompanionKey = {
   modelName: string;
   userId: string;
 };
-
+export const maxDuration = 60;
 export class MemoryManager {
   private static instance: MemoryManager;
   private history: Redis;
@@ -27,6 +27,33 @@ export class MemoryManager {
     }
     console.log("vectordb init ");
   }
+  // public async vectorSearch(
+  //   recentChatHistory: string,
+  //   companionFileName: string
+  // ) {
+  //   const pineconeClient = <Pinecone>this.vectorDBClient;
+  //   const pineconeIndex = pineconeClient.Index(process.env.PINECONE_INDEX!);
+  //   const embed = new OpenAIEmbeddings({
+  //     openAIApiKey: process.env.OPEN_AI_API_KEY,
+  //   });
+  //   console.log(
+  //     "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  //   );
+  //   console.log(embed);
+  //   console.log(
+  //     "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  //   );
+  //   const vectorStore = await PineconeStore.fromExistingIndex(embed, {
+  //     pineconeIndex,
+  //   });
+
+  //   const similarDocs = await vectorStore
+  //     .similaritySearch(recentChatHistory, 3, { fileName: companionFileName })
+  //     .catch((err) => {
+  //       console.log("Failed to get vector search results ", err);
+  //     });
+  //   return similarDocs;
+  // }
 
   public static async getInstance(): Promise<MemoryManager> {
     if (!MemoryManager.instance) {
