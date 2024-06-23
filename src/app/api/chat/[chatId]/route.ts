@@ -62,14 +62,14 @@ export async function POST(
     console.log(
       "REached here before similardocs..........................................................................................................................................................................................................\n\n\n"
     );
-    const similarDocs = await memoryManager.vectorSearch(
-      recentChatHistory,
-      companion_file_name
-    );
+    // const similarDocs = await memoryManager.vectorSearch(
+    //   recentChatHistory,
+    //   companion_file_name
+    // );
     let relevantHistory = "";
-    if (!!similarDocs && similarDocs.length != 0) {
-      relevantHistory = similarDocs.map((doc) => doc.pageContent).join("\n");
-    }
+    // if (!!similarDocs && similarDocs.length != 0) {
+    //   relevantHistory = similarDocs.map((doc) => doc.pageContent).join("\n");
+    // }
     const { handlers } = LangChainStream();
     console.log(
       "REached here before Replicate..........................................................................................................................................................................................................\n\n\n"

@@ -27,26 +27,6 @@ export class MemoryManager {
     }
     console.log("vectordb init ");
   }
-  public async vectorSearch(
-    recentChatHistory: string,
-    companionFileName: string
-  ) {
-    const pineconeClient = <Pinecone>this.vectorDBClient;
-    const pineconeIndex = pineconeClient.Index(process.env.PINECONE_INDEX!);
-    const vectorStore = await PineconeStore.fromExistingIndex(
-      new OpenAIEmbeddings({
-        openAIApiKey: process.env.OPEN_AI_API_KEY,
-      }),
-      { pineconeIndex }
-    );
-
-    const similarDocs = await vectorStore
-      .similaritySearch(recentChatHistory, 3, { fileName: companionFileName })
-      .catch((err) => {
-        console.log("Failed to get vector search results ", err);
-      });
-    return similarDocs;
-  }
 
   public static async getInstance(): Promise<MemoryManager> {
     if (!MemoryManager.instance) {
