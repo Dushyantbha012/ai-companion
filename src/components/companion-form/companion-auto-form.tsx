@@ -86,10 +86,10 @@ const CompanionAutoForm = ({ categories }: CompanionFormProps) => {
           <div className="space-y-2 w-full">
             <div>
               <h3 className="text-lg font-medium">
-                {"General Information [Create Companion with AI]"}
+                {"General Information [Create Buddy with AI]"}
               </h3>
               <p className="text-sm text-muted-foreground">
-                {`General Information about your Companion [Make Sure Companion you are creating is Famous]`}
+                {`General Information about your Buddy [Make Sure Buddy you are creating is Famous]`}
               </p>
             </div>
             <Separator className="bg-primary/10" />
@@ -125,7 +125,7 @@ const CompanionAutoForm = ({ categories }: CompanionFormProps) => {
                     />
                   </FormControl>
                   <FormDescription>
-                    This is how your AI Companion will need the name
+                    This is how your AI Buddy will need the name
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -145,7 +145,7 @@ const CompanionAutoForm = ({ categories }: CompanionFormProps) => {
                     />
                   </FormControl>
                   <FormDescription>
-                    Short description for your AI Companion
+                    Short description for your AI Buddy
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

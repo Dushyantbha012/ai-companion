@@ -52,7 +52,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
   if (initialData && user?.id !== initialData?.userId) {
     console.log("redirected");
     toast({
-      description: `Can not edit the Companion, ${initialData?.name}`,
+      description: `Can not edit the Buddy, ${initialData?.name}`,
       variant: "destructive",
     });
     router.push("/");
@@ -97,7 +97,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
               router.push("/companion/auto");
             }}
           >
-            Create Companion With AI
+            Create Buddy With AI
           </div>
         </div>
       )}
@@ -110,7 +110,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
             <div>
               <h3 className="text-lg font-medium">General Information</h3>
               <p className="text-sm text-muted-foreground">
-                General Information about your Companion
+                General Information about your Buddy
               </p>
             </div>
             <Separator className="bg-primary/10" />
@@ -146,7 +146,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
                     />
                   </FormControl>
                   <FormDescription>
-                    This is how your AI Companion will need the name
+                    This is how your AI Buddy will need the name
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -166,7 +166,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
                     />
                   </FormControl>
                   <FormDescription>
-                    Short description for your AI Companion
+                    Short description for your AI Buddy
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -247,12 +247,12 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
                   <Textarea
                     className="bg-background resize-none"
                     disabled={isLoading}
-                    placeholder="Give an example of how you companion would converse"
+                    placeholder="Give an example of how you Buddy would converse"
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  Describe How your Companion will talk
+                  Describe How your Buddy will talk
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -264,7 +264,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
               disabled={isLoading}
               className="dark:bg-background dark:text-white"
             >
-              {initialData ? "Edit your Companion" : "Create your Comapnion"}{" "}
+              {initialData ? "Edit your Buddy" : "Create your Comapnion"}{" "}
               <Wand2 className="w-4 h-4 ml-2" />
             </Button>
           </div>

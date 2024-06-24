@@ -24,7 +24,7 @@ const Navbar = () => {
               font.className
             )}
           >
-            companion.ai
+            buddy.ai
           </h1>
         </Link>
       </div>

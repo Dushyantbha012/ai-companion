@@ -9,8 +9,8 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AI-Companion",
-  description: "AI-Companion",
+  title: "AI-buddy",
+  description: "AI-buddy",
 };
 
 export default function RootLayout({
