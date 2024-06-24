@@ -3,6 +3,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { google } from "@ai-sdk/google";
 import { generateText, streamText } from "ai";
+export const maxDuration = 60;
 
 async function generateInstructions(name: string, description: string) {
   const { text } = await generateText({
