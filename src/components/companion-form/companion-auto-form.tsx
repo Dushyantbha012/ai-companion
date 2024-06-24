@@ -4,7 +4,6 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 interface CompanionFormProps {
-  initialData: Companion | null;
   categories: Category[];
 }
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,7 +26,6 @@ import {
   SelectContent,
   SelectValue,
 } from "../ui/select";
-import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Wand2 } from "lucide-react";
 import { useToast } from "../ui/use-toast";
@@ -37,33 +35,27 @@ import { useUser } from "@clerk/nextjs";
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   description: z.string().min(1, { message: "Description is required" }),
-  instruction: z
-    .string()
-    .min(200, { message: "Instructions required[At least 200]" }),
-  seed: z.string().min(200, { message: "Seed required[At least 200]" }),
   src: z.string().min(1, { message: "Image is required" }),
   categoryId: z.string().min(1, { message: "Category is required" }),
 });
 
-const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
-  const { user } = useUser();
-  const { toast } = useToast();
+const CompanionAutoForm = ({ categories }: CompanionFormProps) => {
   const router = useRouter();
-  if (initialData && user?.id !== initialData?.userId) {
-    console.log("redirected");
-    toast({
-      description: `Can not edit the Companion, ${initialData?.name}`,
-      variant: "destructive",
-    });
+  const { user } = useUser();
+  if (!user) {
     router.push("/");
+  } else {
+    if (!user.id) {
+      router.push("/");
+    }
   }
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData || {
+    defaultValues: {
       name: "",
       description: "",
-      instruction: "",
-      seed: "",
       src: "",
       categoryId: undefined,
     },
@@ -71,11 +63,8 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      if (initialData) {
-        await axios.patch(`/api/companion/${initialData.id}`, values);
-      } else {
-        await axios.post(`/api/companion`, values);
-      }
+      await axios.post(`/api/companion/auto`, values);
+
       toast({ description: "success" });
       router.refresh();
       router.push("/");
@@ -89,18 +78,6 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
   };
   return (
     <div className="h-full p-4 space-y-2 max-w-3xl mx-auto">
-      {!initialData && (
-        <div className="w-[100%] flex items-center">
-          <div
-            className="w-full text-center text-teal-500 hover:text-teal-700 hover:cursor-pointer border border-emerald-500 p-3 bg-emerald-300"
-            onClick={() => {
-              router.push("/companion/auto");
-            }}
-          >
-            Create Companion With AI
-          </div>
-        </div>
-      )}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -108,9 +85,11 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
         >
           <div className="space-y-2 w-full">
             <div>
-              <h3 className="text-lg font-medium">General Information</h3>
+              <h3 className="text-lg font-medium">
+                {"General Information [Create Companion with AI]"}
+              </h3>
               <p className="text-sm text-muted-foreground">
-                General Information about your Companion
+                {`General Information about your Companion [Make Sure Companion you are creating is Famous]`}
               </p>
             </div>
             <Separator className="bg-primary/10" />
@@ -209,63 +188,13 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
             />
           </div>
           <Separator className="bg-primary/10" />
-          <div className="space-y-2 w-full">
-            <h3 className="text-lg font-medium">Configurations</h3>
-            <p className="text-sm text-muted-foreground">
-              Detailed instructions for AI Behaviour
-            </p>
-          </div>
-          <Separator className="bg-primary/10" />
-          <FormField
-            name="instruction"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="col-span-2 md:col-span-1">
-                <FormLabel>Instructions</FormLabel>
-                <FormControl>
-                  <Textarea
-                    className="bg-background resize-none"
-                    disabled={isLoading}
-                    placeholder="Detailed Instructions, including comapnion&app;s backstory and relevant details"
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>
-                  Detailed Instructions for you AI Model
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name="seed"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="col-span-2 md:col-span-1">
-                <FormLabel>Example Conversation</FormLabel>
-                <FormControl>
-                  <Textarea
-                    className="bg-background resize-none"
-                    disabled={isLoading}
-                    placeholder="Give an example of how you companion would converse"
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>
-                  Describe How your Companion will talk
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <div className="w-full flex justify-center">
             <Button
               size="lg"
               disabled={isLoading}
               className="dark:bg-background dark:text-white"
             >
-              {initialData ? "Edit your Companion" : "Create your Comapnion"}{" "}
-              <Wand2 className="w-4 h-4 ml-2" />
+              {"Create your Comapnion"} <Wand2 className="w-4 h-4 ml-2" />
             </Button>
           </div>
         </form>
@@ -274,4 +203,4 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
   );
 };
 
-export default CompanionForm;
+export default CompanionAutoForm;
