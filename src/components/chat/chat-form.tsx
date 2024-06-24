@@ -33,6 +33,7 @@ const ChatForm = ({
         value={input}
         onChange={handelInputChange}
         placeholder="Type a message"
+        id="UserInput"
         className="rounded-lg bg-primary/10"
       />
       <Button variant="ghost" disabled={isLoading}>
