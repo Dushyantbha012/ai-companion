@@ -52,7 +52,7 @@ export async function POST(
     const prompt = `
         ONLY generate plain sentences without prefix of who is speaking. DO NOT use ${companion.name}:prefix.DO NOT generate more than 100 words,
 
-        ${companion.instruction}
+        ${companion.instruction} and here is an example conversation to tell you how ${companion.name} speaks : ${companion.seed}
 
         Below are the relevant details about ${companion.name}'s past and the conversation you are in,
         ${recentChatHistory}. Keep these details to yourself and do not repeat them in your output.Give small, concise, relevant and to the point outputs.
