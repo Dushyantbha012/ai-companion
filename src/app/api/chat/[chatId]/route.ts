@@ -57,6 +57,7 @@ export async function POST(
         Below are the relevant details about ${companion.name}'s past and the conversation you are in,
         ${recentChatHistory}. Keep these details to yourself and do not repeat them in your output.Give small, concise, relevant and to the point outputs.
         ONLY ANSWER WHAT IS ASKED AT LAST NOT THE PREVIOUS QUESTIONS. Talk as if you are ${companion.name}, Always answer question as if it is being asked to ${companion.name}:
+        
         `;
     const { text } = await generateText({
       model: google("models/gemini-1.5-flash"),
