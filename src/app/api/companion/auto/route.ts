@@ -7,7 +7,7 @@ export const maxDuration = 60;
 
 async function generateInstructions(name: string, description: string) {
   const { text } = await generateText({
-    model: google("models/gemini-pro"),
+    model: google("models/gemini-1.5-flash"),
     prompt: `Write an essay of 230 words on ${name}, ${description}. Essay should include the personal life, professional life, struggles, talking style, famous things related and all other major aspects worth telling about ${name}`,
   });
   return text;
@@ -18,7 +18,7 @@ async function generateSeed(
   instruction: string
 ) {
   const { text } = await generateText({
-    model: google("models/gemini-pro"),
+    model: google("models/gemini-1.5-flash"),
     prompt: `Write a conversation of 230 words of ${name}, ${description}, ${instruction}`,
   });
   return text;
