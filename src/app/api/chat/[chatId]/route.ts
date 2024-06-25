@@ -59,7 +59,7 @@ export async function POST(
         ONLY ANSWER WHAT IS ASKED AT LAST NOT THE PREVIOUS QUESTIONS. Talk as if you are ${companion.name}, Always answer question as if it is being asked to ${companion.name}:
         `;
     const { text } = await generateText({
-      model: google("models/gemini-pro"),
+      model: google("models/gemini-1.5-flash"),
       prompt: prompt,
     });
     const res = {
